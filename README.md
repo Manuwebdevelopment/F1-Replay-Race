@@ -183,24 +183,82 @@ f1-race-replay/
 ├── README.md                  # Project documentation
 ├── roadmap.md                 # Planned features and project vision
 ├── resources/
-│   └── preview.png           # Race replay preview image
+│   ├── preview.png            # Race replay preview image
+│   ├── gui-menu.png           # GUI menu screenshot
+│   └── cli-menu.gif           # CLI menu screenshot
 ├── src/
 │   ├── f1_data.py            # Telemetry loading, processing, frame generation & SC position simulation
 │   ├── arcade_replay.py      # Visualization and UI logic
-│   └── ui_components.py      # UI components like buttons and leaderboard
+│   ├── ui_components.py      # UI components like buttons and leaderboard
 │   ├── interfaces/
-│   │   └── qualifying.py     # Qualifying session interface and telemetry visualization
+│   │   ├── qualifying.py     # Qualifying session interface and telemetry visualization
 │   │   └── race_replay.py    # Race replay interface, SC rendering & telemetry visualization
-│   └── lib/
-│       └── tyres.py          # Type definitions for telemetry data structures
-│       └── time.py           # Time formatting utilities
+│   ├── lib/
+│   │   ├── tyres.py          # Type definitions for telemetry data structures
+│   │   └── time.py           # Time formatting utilities
+│   ├── gui/
+│   │   ├── insights_menu.py  # The main insights menu
+│   │   ├── pit_wall_window.py   # Base class for all insight windows
+│   │   └── race_selection.py  # GUI season/round selection
+│   └── insights/              # Telemetry analysis insight windows
+│       ├── leaderboard_window.py       # Live driver standings with tyre compounds
+│       ├── gap_analysis_window.py      # Gap between all drivers and the leader (with chart)
+│       ├── lap_time_evolution_window.py     # Lap time progression over time
+│       ├── pit_stop_analysis_window.py  # Pit stop analysis and strategy
+│       ├── position_history_window.py   # Position changes throughout the race
+│       ├── race_control_events_window.py    # Real-time race control events and flags
+│       ├── sector_times_window.py    # Sector time analysis and comparisons
+│       ├── speed_monitor_window.py       # Speed vs max speed for all drivers (with chart)
+│       ├── track_position_heatmap_window.py  # Driver position heatmap on circuit
+│       ├── track_position_window.py   # Real-time track position for all drivers
+│       ├── tyre_strategy_window.py       # Tyre compound tracking and strategy
+│       ├── driver_telemetry_window.py    # Detailed per-driver telemetry panel
+│       ├── example_pit_wall_window.py  # Example window (reference implementation)
+│       ├── telemetry_stream_viewer.py   # Raw telemetry stream viewer
+│       └── __init__.py
+├── docs/
+│   ├── PitWallWindow.md     # Complete guide to building custom insight windows
+│   └── InsightsMenu.md      # How to add insights to the menu
 └── .fastf1-cache/            # FastF1 cache folder (created automatically upon first run)
 └── computed_data/            # Computed telemetry data (created automatically upon first run)
 ```
 
-## Building Custom Telemetry Windows
+## Insight Windows
 
-When you start a race replay, an **Insights Menu** automatically appears, providing quick access to various telemetry analysis tools. You can easily create custom insight windows that receive live telemetry data using the `PitWallWindow` base class:
+The **Insights Menu** provides quick access to the following telemetry analysis tools:
+
+### Race Analysis
+| Window | Description |
+|--------|-------------|
+| 🏁 Leaderboard | Live driver positions, tyre compounds, speeds |
+| ⏱️ Sector Times | Real-time sector times with driver comparisons |
+| 📊 Gap Analysis | Gap between all drivers and the leader (bar chart) |
+| 🛑 Pit Stop Analysis | Pit stop timing, compounds, and strategy visualization |
+| 🔵 Tyre Strategy | Tyre wear tracking and compound choices |
+| ⚡ Speed Monitor | Speed vs top speed for all drivers (sparkline chart) |
+| 📈 Lap Time Evolution | How lap times have progressed by compound |
+| 🏎️ Position History | All driver position changes throughout the race |
+
+### Track & Position
+| Window | Description |
+|--------|-------------|
+| 🗺️ Track Position | Real-time driver positions on the circuit map |
+| 🔥 Heatmap | Driver heatmaps showing track activity |
+
+### Race Events
+| Window | Description |
+|--------|-------------|
+| 🏁 Race Control | Live flags, penalties, safety car, DRS status |
+| 📡 Telemetry View | Raw telemetry data stream viewer |
+
+### Drivers
+| Window | Description |
+|--------|-------------|
+| 💨 Driver Telemetry | Detailed per-driver panel (speed, gear, throttle, brake) |
+
+### Building Custom Windows
+
+When you start a race replay, an **Insights Menu** automatically appears, providing quick access to various telemetry analysis tools. You can easily create custom insight windows that receive live telemetry data using the `PitWallWindow` base class from `src.gui.pit_wall_window`:
 
 ```python
 from src.gui.pit_wall_window import PitWallWindow
@@ -260,4 +318,4 @@ No copyright infringement intended. Formula 1 and related trademarks are the pro
 
 ---
 
-Built with ❤️ by [Tom Shaw](https://tomshaw.dev)
+Built with ❤️ by MWD with Hermes — inspired by [Tom Shaw](https://tomshaw.dev)'s original vision and early implementation.

@@ -424,9 +424,9 @@ class _TrackMapWidget(QWidget):
             return
         step_m = 1000
         n_marks = int(self.circuit_length_m // step_m)
-        font = QFont("Arial", 6)
-        painter.setFont(font)
-        fm = QFontMetrics(font)
+        font_sm = QFont("Arial", 6)
+        painter.setFont(font_sm)
+        fm = QFontMetrics(font_sm)
         for i in range(1, n_marks + 1):
             dist = i * step_m
             if dist >= self.circuit_length_m:
@@ -439,15 +439,13 @@ class _TrackMapWidget(QWidget):
             ty = nx
             mid_x = cx + radius * nx
             mid_y = cy + radius * ny
-            half = 8
+            tick_half = 8
             painter.setPen(QPen(_DIST_MARKER_COLOR, 1.5))
             painter.drawLine(
-                QPointF(mid_x - tx * half, mid_y - ty * half),
-                QPointF(mid_x + tx * half, mid_y + ty * half),
+                QPointF(mid_x - tx * tick_half, mid_y - ty * tick_half),
+                QPointF(mid_x + tx * tick_half, mid_y + ty * tick_half),
             )
-            font = QFont("Arial", 12)
-            painter.setFont(font)
-            fm = QFontMetrics(font)
+            fm = QFontMetrics(QFont("Arial", 12))
             label = f"{i}K"
             tw = fm.horizontalAdvance(label)
             th = fm.ascent()
