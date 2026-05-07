@@ -8,11 +8,10 @@ from dataclasses import dataclass, field
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QListWidget, QListWidgetItem, QLabel, QSplitter,
-    QFrame, QPixmap, QPainter, QColor, QFont,
-    QStylePainter, QStyleOptionButton, QCheckBox
+    QFrame, QStylePainter, QStyleOptionButton, QCheckBox
 )
 from PySide6.QtCore import Qt, QUrl, QSize
-from PySide6.QtGui import QPalette, QColor, QFontMetrics, QPainter, QPen, QFont
+from PySide6.QtGui import QPalette, QColor, QFontMetrics, QPainter, QPen, QFont, QPixmap
 import sys
 from enum import Enum
 
