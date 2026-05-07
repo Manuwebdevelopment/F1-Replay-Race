@@ -833,9 +833,26 @@ def get_race_telemetry(session, session_type="R"):
         if not snapshot:
             continue
 
-        # 5b. Sort by race distance to get POSITIONS (1–20)
-        # Leader = largest race distance covered
-        snapshot.sort(key=lambda r: (r.get("lap", 0), r["dist"]), reverse=True)
+        # 5b. Sort to get POSITIONS (1–20)
+        # Leader = most laps completed, then furthest through current lap.
+        # Use (lap, rel_dist) for same-lap comparison — this avoids the
+        # "small race-distance values at start/finish" noise that made the
+        # old `dist`-based sort unstable.
+        # For cars in the pits we fall back to race-dist because rel_dist
+        # (circuit-relative) is meaningless inside pit-lane while lapping.
+        def _sort_key(car):
+            code = car.get("code", "")
+            in_pit = (
+                any(start <= car["t"] <= end
+                    for start, end in pit_windows_shifted.get(code, []))
+            )
+            if in_pit:
+                # Hold position: for pitting drivers race-distance preserves
+                # the gap vs. leaders better than rel_dist which is stale.
+                return (car.get("lap", 0), car["dist"])
+            return (car.get("lap", 0), car.get("rel_dist", 0.0))
+
+        snapshot.sort(key=_sort_key, reverse=True)
 
         leader = snapshot[0]
         leader_lap = leader["lap"]
