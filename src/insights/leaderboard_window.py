@@ -22,21 +22,6 @@ from src.insights.colours import (
 )
 from src.gui.pit_wall_window import PitWallWindow
 
-# ─── Constants ────────────────────────────────────────────────────────────
-
-_DRIVER_BK = {
-    "MAX": "#3671C6", "PIA": "#FF8000", "LEC": "#E8002D",
-    "ALO": "#225D4B", "NOR": "#FF8000", "RUS": "#27F4D2",
-    "TSU": "#6099DA", "LAW": "#B6BABD", "ALB": "#64C4FF",
-    "GAS": "#FF87BC", "HUL": "#52E252", "OCO": "#FF87BC",
-    "STR": "#52E252", "ZHE": "#6099DA", "BOT": "#52E252",
-    "MAR": "#B6BABD", "DEN": "#64C4FF", "PER": "#3671C6",
-    "SAI": "#E8002D", "MAG": "#B6BABD", "CHI": "#6099DA",
-    "DON": "#43C6C6", "SUR": "#52E252", "LAF": "#FF87BC",
-    "BOU": "#FF87BC", "COL": "#64C4FF",
-    "RUS": "#27F4D2", "HAM": "#27F4D2",
-}
-
 _KIT_DIR = "resources/kits"  # will be resolved via importlib
 
 

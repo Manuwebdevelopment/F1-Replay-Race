@@ -21,7 +21,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtGui import QFont
 from src.gui.pit_wall_window import PitWallWindow
-from src.insights.colours import TEAM_COLOURS, _DEFAULT_COL, DRIVER_TEAM_MAP
+from src.insights.colours import TEAM_COLOURS, DRIVER_TEAM_MAP, _DEFAULT_COL
 
 _TIME_WINDOW = 60        # seconds kept in rolling-time mode
 _MAX_SPEED = 380         # km/h
@@ -33,8 +33,6 @@ def _get_driver_colour(code: str) -> str:
 
 # For backward compatibility with existing code
 _TEAM_COLOURS = _get_driver_colour
-# Default colour for unknown drivers
-_DEFAULT_COL = "#FFFFFF"
 
 
 class SpeedMonitorWindow(PitWallWindow):
